@@ -423,10 +423,10 @@ bool bullSweep = low < swingLo and close > swingLo and liveBar and adxOK
 bool bearSweep = high > swingHi and close < swingHi and liveBar and adxOK
 int  vLSW = bullSweep ? 3 : bearSweep ? -3 : 0
 
-int totalV = vEMA+vDiv+vOCB+vVWAP+vAng+vR3+vPA+vORB+vCdl+vExh+vRng+vMov+vEMAdj+vRSI+vFVG+vLSW
+int totalV = int(vEMA+vDiv+vOCB+vVWAP+vAng+vR3+vPA+vORB+vCdl+vExh+vRng+vMov+vEMAdj+vRSI+vFVG+vLSW)
 bool buyDir  = totalV > 0
 bool sellDir = totalV < 0
-int  absV    = math.abs(totalV)
+int  absV    = int(math.abs(float(totalV)))
 
 // ── CONFIDENCE SCORE ─────────────────────────────────────────────────────────
 // Raised harmonic score from 8 → 15 (was too low, preventing 1:35 PM D×4 signals)
@@ -470,7 +470,7 @@ bool gAdx   = adxOK
 bool gDoji  = not doji
 bool gVotes = absV >= i_min_votes
 // Harmonic bars already penalised by lower sc_time — use slightly lower threshold
-int  minScoreGate = atHarm ? int(math.max(i_min_score - 8, 38)) : i_min_score
+int  minScoreGate = atHarm ? int(math.max(float(i_min_score - 8), 38.0)) : i_min_score
 bool gScore = score >= minScoreGate
 bool gTrap  = not (bull and emaUp and rsi < i_rsi_trap)
 // COUNTER-TREND FILTER:
